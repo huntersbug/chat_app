@@ -2,7 +2,7 @@ import { Box } from "@chakra-ui/react";
 import axios from "axios";
 import React ,{useState} from "react";
 import { useNavigate } from "react-router-dom";
-import http://localhost:8080 from "../index.js";
+
 import "../App.css";
 import Contactcomp from "../Components/Contact.jsx";
 import Welcome from "../Components/Welcome.jsx";
