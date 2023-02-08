@@ -13,7 +13,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import React from "react";
-import backendurl from "../index";
+
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 export default function Signup() {
@@ -27,7 +27,7 @@ export default function Signup() {
   const handelclick = () => {
 
     axios
-      .post(`${backendurl}/signup`, user)
+      .post(`http://localhost:8080/signup`, user)
       .then((r) => {
     if(r.status===200){
       toast({

@@ -12,7 +12,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import React from "react";
-import backendurl from "../index";
+
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 export default function Login() {
@@ -24,7 +24,7 @@ export default function Login() {
   });
   const handelclick = () => {
     axios
-      .post(`${backendurl}/login`, user)
+      .post(`http://localhost:8080/login`, user)
       .then((r) => {
         if (r.status === 200) {
           localStorage.setItem("user_auth_status", JSON.stringify(r.data));
@@ -35,7 +35,7 @@ export default function Login() {
             duration: 6000,
             isClosable: true,
           });
-          navigate("/")
+          navigate("/");
         }
       })
       .catch((err) => {

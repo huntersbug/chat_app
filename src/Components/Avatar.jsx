@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import axios from "axios";
 
 import { useNavigate } from "react-router-dom";
-import backendurl from "../index";
+
 
 const Avatar = () => {
   const toast = useToast();
@@ -40,7 +40,7 @@ const Avatar = () => {
       const user = await JSON.parse(localStorage.getItem("user_auth_status"));
 
       let { data } = await axios.post(
-        `${backendurl}/setavatar/${user.data._id}`,
+        `http://localhost:8080/setavatar/${user.data._id}`,
         {
           image: avatars[selectedAvatar],
         }

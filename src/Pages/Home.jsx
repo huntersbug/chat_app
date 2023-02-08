@@ -2,7 +2,7 @@ import { Box } from "@chakra-ui/react";
 import axios from "axios";
 import React ,{useState} from "react";
 import { useNavigate } from "react-router-dom";
-import backendurl from "../index.js";
+import http://localhost:8080 from "../index.js";
 import "../App.css";
 import Contactcomp from "../Components/Contact.jsx";
 import Welcome from "../Components/Welcome.jsx";
@@ -27,7 +27,7 @@ const Home = () => {
   const getuser = async () => {
     if (currentuser.isAvatarImageSet) {
       const data = await axios.get(
-        `${backendurl}/getavatar/${currentuser.data._id}`
+        `http://localhost:8080/getavatar/${currentuser.data._id}`
       );
 
       setContact(data.data);
