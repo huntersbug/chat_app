@@ -4,7 +4,7 @@ import ChatInput from './ChatInput';
 import Logout from './Logout';
 const ChatCurrent = ({currentChat}) => {
     const handleSendMsg=(msg)=>{
-
+console.log(msg)
     }
   return (
     <Container>
