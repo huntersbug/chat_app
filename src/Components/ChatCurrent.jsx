@@ -4,9 +4,14 @@ import styled from "styled-components";
 import ChatInput from "./ChatInput";
 import Logout from "./Logout";
 const ChatCurrent = ({ currentChat, currentuser }) => {
-
+const getchat=async()=>{
+  const [message,setMessage]=React.useState([])
+  const payload={from:currentuser.id,to:currentChat.id}
+const res=axios.post("http://localhost:8080/getchat",payload)
+setMessage(res.data)
+}
   React.useEffect(()=>{
-
+getchat()
   },[currentChat])
   const handleSendMsg = async (msg) => {
     const data = await JSON.parse(localStorage.getItem("user_auth_status"));
@@ -30,7 +35,7 @@ const ChatCurrent = ({ currentChat, currentuser }) => {
         </div>
         <Logout />
       </div>
-      {/* <div className="chat-messages">
+      <div className="chat-messages">
       {messages.map((message) => {
         return (
           <div ref={scrollRef} key={uuidv4()}>
@@ -46,7 +51,7 @@ const ChatCurrent = ({ currentChat, currentuser }) => {
           </div>
         );
       })}
-    </div> */}
+    </div>
       <ChatInput handleSendMsg={handleSendMsg} />
     </Container>
   );
