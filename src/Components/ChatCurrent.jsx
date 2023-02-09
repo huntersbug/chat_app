@@ -1,28 +1,36 @@
-import React from 'react'
+import  axios from "axios"
+import React from "react";
 import styled from "styled-components";
-import ChatInput from './ChatInput';
-import Logout from './Logout';
-const ChatCurrent = ({currentChat}) => {
-    const handleSendMsg=(msg)=>{
-console.log(msg)
-    }
+import ChatInput from "./ChatInput";
+import Logout from "./Logout";
+const ChatCurrent = ({ currentChat, currentuser }) => {
+
+  React.useEffect(()=>{
+
+  },[currentChat])
+  const handleSendMsg = async (msg) => {
+    const data = await JSON.parse(localStorage.getItem("user_auth_status"));
+    const payload = {
+      from: data._id,
+      to: currentChat._id,
+      message:msg
+    };
+    const response = await axios.post(`http://localhost:8080/postmsg`, payload);
+  };
   return (
     <Container>
-    <div className="chat-header">
-      <div className="user-details">
-        <div className="avatar">
-          <img
-            src={""}
-            alt=""
-          />
+      <div className="chat-header">
+        <div className="user-details">
+          <div className="avatar">
+            <img src={""} alt="" />
+          </div>
+          <div className="username">
+            <h3>{currentChat.username}</h3>
+          </div>
         </div>
-        <div className="username">
-          <h3>{currentChat.username}</h3>
-        </div>
+        <Logout />
       </div>
-      <Logout />
-    </div>
-   {/* <div className="chat-messages">
+      {/* <div className="chat-messages">
       {messages.map((message) => {
         return (
           <div ref={scrollRef} key={uuidv4()}>
@@ -39,13 +47,12 @@ console.log(msg)
         );
       })}
     </div> */}
-    <ChatInput handleSendMsg={handleSendMsg} />
-  </Container>
-  )
-}
+      <ChatInput handleSendMsg={handleSendMsg} />
+    </Container>
+  );
+};
 
-export default ChatCurrent
-
+export default ChatCurrent;
 
 const Container = styled.div`
   display: grid;

@@ -50,7 +50,7 @@ const Home = () => {
     >
       <div className="chat_container">
         <Contactcomp Contact={Contact} changeChat={handleChatChange} />
-        {currentChat ? <ChatCurrent  currentChat={currentChat}></ChatCurrent> : <Welcome />}
+        {currentChat ? <ChatCurrent  currentChat={currentChat} currentuser={currentuser}></ChatCurrent> : <Welcome />}
       </div>
     </Box>
   );
