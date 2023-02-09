@@ -1,24 +1,27 @@
-import  axios from "axios"
+import axios from "axios";
 import React from "react";
 import styled from "styled-components";
 import ChatInput from "./ChatInput";
 import Logout from "./Logout";
 const ChatCurrent = ({ currentChat, currentuser }) => {
-const getchat=async()=>{
-  const [message,setMessage]=React.useState([])
-  const payload={from:currentuser.id,to:currentChat.id}
-const res=axios.post("http://localhost:8080/getchat",payload)
-setMessage(res.data)
-}
-  React.useEffect(()=>{
-getchat()
-  },[currentChat])
+  const [message, setMessage] = React.useState([]);
+  const getchat = async () => {
+    const payload = { from: currentuser.data._id, to: currentChat._id };
+
+    const res = await axios.post("http://localhost:8080/getmsg", payload);
+    console.log(res);
+    setMessage(res.data);
+  };
+  React.useEffect(() => {
+    getchat();
+  }, [currentChat]);
   const handleSendMsg = async (msg) => {
     const data = await JSON.parse(localStorage.getItem("user_auth_status"));
+
     const payload = {
-      from: data._id,
+      from: data.data._id,
       to: currentChat._id,
-      message:msg
+      message: msg,
     };
     const response = await axios.post(`http://localhost:8080/postmsg`, payload);
   };
@@ -36,22 +39,22 @@ getchat()
         <Logout />
       </div>
       <div className="chat-messages">
-      {messages.map((message) => {
-        return (
-          <div ref={scrollRef} key={uuidv4()}>
-            <div
-              className={`message ${
-                message.fromSelf ? "sended" : "recieved"
-              }`}
-            >
-              <div className="content ">
-                <p>{message.message}</p>
+        {message?.map((message, index) => {
+          return (
+            <div key={index}>
+              <div
+                className={`message ${
+                  message.fromSelf ? "sended" : "recieved"
+                }`}
+              >
+                <div className="content ">
+                  <p>{message.message} </p>
+                </div>
               </div>
             </div>
-          </div>
-        );
-      })}
-    </div>
+          );
+        })}
+      </div>
       <ChatInput handleSendMsg={handleSendMsg} />
     </Container>
   );
@@ -105,13 +108,18 @@ const Container = styled.div`
     .message {
       display: flex;
       align-items: center;
+ 
       .content {
         max-width: 40%;
+ 
         overflow-wrap: break-word;
         padding: 1rem;
         font-size: 1.1rem;
         border-radius: 1rem;
+
         color: #d1d1d1;
+     border:1px solid white;
+
         @media screen and (min-width: 720px) and (max-width: 1080px) {
           max-width: 70%;
         }
@@ -119,12 +127,15 @@ const Container = styled.div`
     }
     .sended {
       justify-content: flex-end;
+
       .content {
         background-color: #4f04ff21;
+
       }
     }
     .recieved {
       justify-content: flex-start;
+   
       .content {
         background-color: #9900ff20;
       }
